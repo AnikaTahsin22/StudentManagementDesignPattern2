@@ -1,8 +1,6 @@
 package org.example;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
@@ -10,9 +8,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentManager {
+
+    // 🔹 Step 1: Single instance (Singleton)
+    private static StudentManager instance;
+
+    // 🔹 Step 2: Private student list
     private List<Student> students = new ArrayList<>();
 
+    // 🔹 Step 3: Private constructor prevents external instantiation
+    StudentManager() {}
+
+    // 🔹 Step 4: Public method to get the single instance
+    public static StudentManager getInstance() {
+        if (instance == null) {
+            instance = new StudentManager();
+        }
+        return instance;
+    }
+
+
     public void addStudent(String name, int bangla, int english, int math) {
+
         students.add(new Student(name, bangla, english, math));
     }
 
@@ -27,7 +43,9 @@ public class StudentManager {
             if (s.getEnglish() > maxEnglish) maxEnglish = s.getEnglish();
             if (s.getMath() > maxMath) maxMath = s.getMath();
         }
-        return "Highest Marks - Bangla: " + maxBangla + ", English: " + maxEnglish + ", Math: " + maxMath;
+        return "Highest Marks - Bangla: " + maxBangla +
+                ", English: " + maxEnglish +
+                ", Math: " + maxMath;
     }
 
     public String getTopper() {
@@ -53,6 +71,9 @@ public class StudentManager {
         try (FileReader reader = new FileReader(filename)) {
             Type type = new TypeToken<ArrayList<Student>>() {}.getType();
             students = new Gson().fromJson(reader, type);
+            if (students == null) {
+                students = new ArrayList<>();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
