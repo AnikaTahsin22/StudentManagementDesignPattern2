@@ -21,13 +21,13 @@ public class StudentManagerUI extends JFrame {
 
         setSystemLookAndFeel();
 
-        // Use tabs to separate Add and Records
+       
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        // Add Student Tab
+     
         JPanel addStudentPanel = createAddStudentPanel();
 
-        // Student Records Tab (Table + Output log)
+        
         JPanel recordsPanel = createRecordsPanel();
 
         tabbedPane.addTab("➕ Add Student", addStudentPanel);
@@ -57,7 +57,7 @@ public class StudentManagerUI extends JFrame {
         englishField = new JTextField();
         mathField = new JTextField();
 
-        // Increase input fields size
+    
         Dimension inputSize = new Dimension(400, 35);
         nameField.setPreferredSize(inputSize);
         banglaField.setPreferredSize(inputSize);
@@ -72,7 +72,6 @@ public class StudentManagerUI extends JFrame {
         JButton addButton = createFancyButton("➕ Add Student", new Color(72, 201, 176));
         addButton.addActionListener(this::addStudent);
 
-        // Horizontal layout: labels and inputs aligned left, button centered
         layout.setHorizontalGroup(
                 layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(layout.createSequentialGroup()
@@ -86,10 +85,9 @@ public class StudentManagerUI extends JFrame {
                                         .addComponent(banglaField)
                                         .addComponent(englishField)
                                         .addComponent(mathField)))
-                        .addComponent(addButton, GroupLayout.Alignment.CENTER) // center button
+                        .addComponent(addButton, GroupLayout.Alignment.CENTER)
         );
 
-        // Vertical layout: labels and inputs stacked, then button below centered
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -116,7 +114,6 @@ public class StudentManagerUI extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        // Table setup
         String[] columns = {"Name", "Bangla", "English", "Math", "Total", "Average", "Grade"};
         tableModel = new DefaultTableModel(columns, 0);
         studentTable = new JTable(tableModel);
@@ -127,7 +124,7 @@ public class StudentManagerUI extends JFrame {
         JScrollPane tableScroll = new JScrollPane(studentTable);
         tableScroll.setBorder(createRoundedTitledBorder("📋 Student Records"));
 
-        // Buttons Panel with hover effects
+    
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
         buttonPanel.setBackground(new Color(225, 235, 250));
 
@@ -146,7 +143,7 @@ public class StudentManagerUI extends JFrame {
         buttonPanel.add(saveButton);
         buttonPanel.add(loadButton);
 
-        // Output area with rounded border
+     
         outputArea = new JTextArea(5, 50);
         outputArea.setEditable(false);
         outputArea.setFont(new Font("Consolas", Font.PLAIN, 14));
@@ -244,7 +241,7 @@ public class StudentManagerUI extends JFrame {
             outputArea.append("✅ Added student: " + name + "\n");
             updateTable();
 
-            // Clear fields after adding
+           
             nameField.setText("");
             banglaField.setText("");
             englishField.setText("");
@@ -288,7 +285,7 @@ public class StudentManagerUI extends JFrame {
         outputArea.append("📂 Loaded from " + FILE_NAME + "\n");
     }
 
-    // Rounded border class for buttons
+   
     static class RoundedBorder extends AbstractBorder {
         private final int radius;
         public RoundedBorder(int radius) {
@@ -312,7 +309,7 @@ public class StudentManagerUI extends JFrame {
         }
     }
 
-    // Gradient background panel
+ 
     static class GradientPanel extends JPanel {
         private final Color startColor;
         private final Color endColor;
