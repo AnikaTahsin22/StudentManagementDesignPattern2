@@ -1,0 +1,17 @@
+package org.example;
+
+public class StudentTest {
+    public static void main(String[] args) {
+        StudentManager student1 = new StudentManager("Rubayet",84,85,94,new passFail());
+        StudentManager student2 = new StudentManager("Talha",90,82,87,new exactGrade());
+        StudentRegistry studentRegistry = StudentRegistry.getInstance();
+        studentRegistry.showStudents();
+        student1.getTotalMarks();
+        student1.getAverageMarks();
+        student1.getGrade();
+        student2.getTotalMarks();
+        student2.getAverageMarks();
+        student2.getGrade();
+
+    }
+}
