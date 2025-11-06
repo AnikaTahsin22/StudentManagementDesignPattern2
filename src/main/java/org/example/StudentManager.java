@@ -2,7 +2,6 @@ package org.example;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
@@ -10,6 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentManager {
+    // ✅ Step 1: private static instance
+    private static StudentManager instance;
+
+    // ✅ Step 2: private constructor (prevents "new" from outside)
+    private StudentManager() {}
+
+    // ✅ Step 3: static method to get the only instance
+    public static StudentManager getInstance() {
+        if (instance == null) {
+            instance = new StudentManager();
+        }
+        return instance;
+    }
+
     private List<Student> students = new ArrayList<>();
 
     public void addStudent(String name, int bangla, int english, int math) {
