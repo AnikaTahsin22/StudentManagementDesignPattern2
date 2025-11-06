@@ -9,16 +9,16 @@ import java.util.List;
 
 public class StudentManager {
 
-    // 🔹 Step 1: Single instance (Singleton)
+
     private static StudentManager instance;
 
-    // 🔹 Step 2: Private student list
+   
     private List<Student> students = new ArrayList<>();
 
-    // 🔹 Step 3: Private constructor prevents external instantiation
+ 
     StudentManager() {}
 
-    // 🔹 Step 4: Public method to get the single instance
+
     public static StudentManager getInstance() {
         if (instance == null) {
             instance = new StudentManager();
