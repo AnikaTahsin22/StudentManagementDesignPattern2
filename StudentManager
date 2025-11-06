@@ -1,0 +1,140 @@
+package org.example;
+
+import java.util.ArrayList;
+import java.util.List;
+
+ interface gradingStrategy{
+     String calculateGrade(Student student);
+ }
+ interface MarksOperation {
+    double calculate(Student student);
+}
+
+ class TotalMarks implements MarksOperation {
+    @Override
+    public double calculate(Student student) {
+        return (student.getBangla() + student.getEnglish() + student.getMath());
+    }
+}
+
+
+ class AverageMarks implements MarksOperation {
+    @Override
+    public double calculate(Student student) {
+        return (student.getBangla() + student.getEnglish() + student.getMath()) / 3.0;
+    }
+}
+class Student {
+    private String name;
+    private int bangla;
+    private int english;
+    private int math;
+
+    public Student(String name, int bangla, int english, int math) {
+        this.name = name;
+        this.bangla = bangla;
+        this.english = english;
+        this.math = math;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getBangla() {
+        return bangla;
+    }
+
+    public int getEnglish() {
+        return english;
+    }
+
+    public int getMath() {
+        return math;
+    }
+}
+ class StudentRegistry{
+    private static StudentRegistry instance = new StudentRegistry();
+    private List<Student> students = new ArrayList<>();
+    private StudentRegistry() {
+
+    }
+    public static StudentRegistry getInstance() {
+        return instance;
+    }
+    public void addStudent(Student s) {
+        students.add(s);
+    }
+    public void removeStudent(Student s) {
+         students.remove(s);
+    }
+    public void showStudents()
+    {
+        System.out.println("Names of students");
+        for(Student s:students )
+        {
+            System.out.println(s.getName()+" ");
+        }
+        System.out.println("");
+    }
+
+}
+ class exactGrade implements gradingStrategy{
+     private MarksOperation averageMarks;
+     public String calculateGrade(Student student) {
+         this.averageMarks= new AverageMarks();
+
+         double marks = averageMarks.calculate(student);
+         if (marks >= 80.0) return "A+";
+         else if (marks >= 70.0) return "A";
+         else if (marks >= 60.0) return "B";
+         else if (marks >= 50.0) return "C";
+         else if (marks >= 40.0) return "D";
+         else return "F";
+     }
+ }
+class passFail implements gradingStrategy {
+    private MarksOperation averageMarks;
+
+    public String calculateGrade(Student student) {
+        this.averageMarks = new AverageMarks();
+        double marks = averageMarks.calculate(student);
+        if (marks >= 40) return "Pass";
+        else return "Fail";
+    }
+}
+
+
+
+public class StudentManager {
+    private Student student;
+    private MarksOperation totalMarks;
+    private MarksOperation averageMarks;
+    private gradingStrategy grade;
+
+    StudentRegistry studentRegistry = StudentRegistry.getInstance();
+
+
+    public StudentManager(String name, int bangla, int english, int math,gradingStrategy grade) {
+        this.student = new Student(name, bangla, english, math);
+        studentRegistry.addStudent(student);
+        this.totalMarks = new TotalMarks();
+        this.averageMarks = new AverageMarks();
+        this.grade=grade;
+    }
+
+
+    public void getTotalMarks() {
+        System.out.println("Total Marks "+totalMarks.calculate(student));
+    }
+
+    public void getAverageMarks() {
+        System.out.println("Average Marks "+averageMarks.calculate(student));
+    }
+
+    public void getGrade()
+    {
+       System.out.println("Grade "+grade.calculateGrade(student));
+    }
+}
+
